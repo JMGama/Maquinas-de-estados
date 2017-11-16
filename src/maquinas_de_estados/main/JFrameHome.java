@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -20,7 +22,8 @@ public class JFrameHome extends javax.swing.JFrame {
     public List<String> cinta;
     public List<String> estados;
     public List<String> quintuplas;
-    public DefaultListModel modelo = new DefaultListModel();
+    public DefaultListModel modeloEstados = new DefaultListModel();
+    public DefaultListModel modeloQuintuplas = new DefaultListModel();
     
     public JFrameHome() {
         initComponents();
@@ -33,6 +36,8 @@ public class JFrameHome extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         JPaneQuintupla = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JListQuintuplas = new javax.swing.JList<>();
         JPaneEstados = new javax.swing.JPanel();
         JLabelMachine = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -57,15 +62,23 @@ public class JFrameHome extends javax.swing.JFrame {
         JPaneQuintupla.setBackground(new java.awt.Color(255, 255, 255));
         JPaneQuintupla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jScrollPane2.setViewportView(JListQuintuplas);
+
         javax.swing.GroupLayout JPaneQuintuplaLayout = new javax.swing.GroupLayout(JPaneQuintupla);
         JPaneQuintupla.setLayout(JPaneQuintuplaLayout);
         JPaneQuintuplaLayout.setHorizontalGroup(
             JPaneQuintuplaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 323, Short.MAX_VALUE)
+            .addGroup(JPaneQuintuplaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addContainerGap())
         );
         JPaneQuintuplaLayout.setVerticalGroup(
             JPaneQuintuplaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(JPaneQuintuplaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
 
         JPaneEstados.setBackground(new java.awt.Color(255, 255, 255));
@@ -75,12 +88,16 @@ public class JFrameHome extends javax.swing.JFrame {
         JLabelMachine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         JLabelMachine.setText("Maquina de Turing");
 
-        JListEstados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Estados de la maquina" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        JListEstados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(JListEstados);
+        JListEstados.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent arg0){
+                if (!arg0.getValueIsAdjusting()){
+                    seleccionEstado(JListEstados.getSelectedValue().toString());
+                }
+            }
+        });
 
         javax.swing.GroupLayout JPaneEstadosLayout = new javax.swing.GroupLayout(JPaneEstados);
         JPaneEstados.setLayout(JPaneEstadosLayout);
@@ -214,16 +231,28 @@ public class JFrameHome extends javax.swing.JFrame {
         fileMaquina = seleccionDeArchivos.seleccionArchivo();
         quintuplas = seleccionDeArchivos.obtenerMaquina(fileMaquina);
         for(int i=0; i<quintuplas.size(); i++) {
-            System.out.println(quintuplas.get(i).charAt(0));
-            modelo.addElement(Character.toString(quintuplas.get(i).charAt(0)));
+            if(!modeloEstados.contains(Character.toString(quintuplas.get(i).charAt(0)))){
+                modeloEstados.addElement(Character.toString(quintuplas.get(i).charAt(0)));
+            }   
         }
-        JListEstados.setModel(modelo);
+        JListEstados.setModel(modeloEstados);
         
         repaint();
         
         
     }//GEN-LAST:event_JMenuItemMachineActionPerformed
-
+    
+    public void seleccionEstado(String estadoSeleccionado){
+        modeloQuintuplas.clear();
+        for (int i=0; i<quintuplas.size(); i++) {
+            if (Character.toString(quintuplas.get(i).charAt(0)).equals(estadoSeleccionado)) {
+                modeloQuintuplas.addElement(quintuplas.get(i));
+            }
+        }
+        JListQuintuplas.setModel(modeloQuintuplas);
+        System.out.println(estadoSeleccionado);
+    }
+    
     private void JMenuItemTapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemTapeActionPerformed
         ManejoDeArchivos seleccionDeArchivos = new ManejoDeArchivos();
         fileCinta = seleccionDeArchivos.seleccionArchivo();
@@ -272,10 +301,13 @@ public class JFrameHome extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabelMachine;
     private javax.swing.JList<String> JListEstados;
+    private javax.swing.JList<String> JListQuintuplas;
     private javax.swing.JMenuBar JMenuBar;
     private javax.swing.JMenuItem JMenuItemMachine;
     private javax.swing.JMenuItem JMenuItemMealy;
@@ -290,5 +322,6 @@ public class JFrameHome extends javax.swing.JFrame {
     private javax.swing.JTextArea JTextAreaCinta;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
