@@ -2,10 +2,9 @@
 package maquinas_de_estados.main;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.ListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -16,14 +15,14 @@ import javax.swing.event.ListSelectionListener;
 public class JFrameHome extends javax.swing.JFrame {
 
     
-    public String tituloMaquina = "Turing";
+    public String maquina = "Turing";
     public File fileMaquina;
     public File fileCinta;
-    public List<String> cinta;
-    public List<String> estados;
-    public List<String> quintuplas;
+    public List<String> cinta = new ArrayList<String>();
+    public List<String> estados = new ArrayList<String>();
+    public List<String> quintuplas = new ArrayList<String>();
     public DefaultListModel modeloEstados = new DefaultListModel();
-    public DefaultListModel modeloQuintuplas = new DefaultListModel();
+    public DefaultListModel modeloQuintuplas = new DefaultListModel();;
     
     public JFrameHome() {
         initComponents();
@@ -44,6 +43,9 @@ public class JFrameHome extends javax.swing.JFrame {
         JListEstados = new javax.swing.JList<>();
         JScrollPaneCinta = new javax.swing.JScrollPane();
         JTextAreaCinta = new javax.swing.JTextArea();
+        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         JMenuBar = new javax.swing.JMenuBar();
         JMenuLoad = new javax.swing.JMenu();
         JMenuItemMachine = new javax.swing.JMenuItem();
@@ -103,10 +105,10 @@ public class JFrameHome extends javax.swing.JFrame {
         JPaneEstados.setLayout(JPaneEstadosLayout);
         JPaneEstadosLayout.setHorizontalGroup(
             JPaneEstadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JLabelMachine, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+            .addComponent(JLabelMachine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPaneEstadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addContainerGap())
         );
         JPaneEstadosLayout.setVerticalGroup(
@@ -126,15 +128,31 @@ public class JFrameHome extends javax.swing.JFrame {
         JTextAreaCinta.setVerifyInputWhenFocusTarget(false);
         JScrollPaneCinta.setViewportView(JTextAreaCinta);
 
+        jButton3.setText("Reiniciar");
+
+        jButton1.setText("Realizar");
+
+        jButton2.setText("Siguiente");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(JPaneQuintupla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(JPaneEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(JScrollPaneCinta)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(JPaneQuintupla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JPaneEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JScrollPaneCinta)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(193, 193, 193)
+                        .addComponent(jButton2)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +161,13 @@ public class JFrameHome extends javax.swing.JFrame {
                     .addComponent(JPaneQuintupla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(JPaneEstados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JScrollPaneCinta, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addComponent(JScrollPaneCinta, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         JMenuLoad.setText("Load");
@@ -200,11 +224,13 @@ public class JFrameHome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -213,17 +239,17 @@ public class JFrameHome extends javax.swing.JFrame {
 
     private void JMenuItemTuringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemTuringActionPerformed
         JLabelMachine.setText("Turing Machine");
-        tituloMaquina = "Turing";
+        maquina = "Turing";
     }//GEN-LAST:event_JMenuItemTuringActionPerformed
 
     private void JMenuItemMealyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemMealyActionPerformed
         JLabelMachine.setText("Mealy Machine");
-        tituloMaquina = "Mealy";
+        maquina = "Mealy";
     }//GEN-LAST:event_JMenuItemMealyActionPerformed
 
     private void JMenuItemMooreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemMooreActionPerformed
         JLabelMachine.setText("Moore Machine");
-        tituloMaquina = "Moore";
+        maquina = "Moore";
     }//GEN-LAST:event_JMenuItemMooreActionPerformed
 
     private void JMenuItemMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemMachineActionPerformed
@@ -232,14 +258,12 @@ public class JFrameHome extends javax.swing.JFrame {
         quintuplas = seleccionDeArchivos.obtenerMaquina(fileMaquina);
         for(int i=0; i<quintuplas.size(); i++) {
             if(!modeloEstados.contains(Character.toString(quintuplas.get(i).charAt(0)))){
+                estados.add(Character.toString(quintuplas.get(i).charAt(0)));
                 modeloEstados.addElement(Character.toString(quintuplas.get(i).charAt(0)));
             }   
         }
         JListEstados.setModel(modeloEstados);
-        
         repaint();
-        
-        
     }//GEN-LAST:event_JMenuItemMachineActionPerformed
     
     public void seleccionEstado(String estadoSeleccionado){
@@ -250,7 +274,6 @@ public class JFrameHome extends javax.swing.JFrame {
             }
         }
         JListQuintuplas.setModel(modeloQuintuplas);
-        System.out.println(estadoSeleccionado);
     }
     
     private void JMenuItemTapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemTapeActionPerformed
@@ -320,6 +343,9 @@ public class JFrameHome extends javax.swing.JFrame {
     private javax.swing.JPanel JPaneQuintupla;
     private javax.swing.JScrollPane JScrollPaneCinta;
     private javax.swing.JTextArea JTextAreaCinta;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
