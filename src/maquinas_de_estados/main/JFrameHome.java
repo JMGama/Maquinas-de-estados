@@ -1,4 +1,3 @@
-
 package maquinas_de_estados.main;
 
 import java.io.File;
@@ -7,6 +6,9 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import maquinas_de_estados.mealy.Maquina_Mealy;
+import maquinas_de_estados.moore.Maquina_Moore;
+import maquinas_de_estados.turing.Maquina_Turing;
 
 /**
  *
@@ -14,19 +16,19 @@ import javax.swing.event.ListSelectionListener;
  */
 public class JFrameHome extends javax.swing.JFrame {
 
-    
+    public Maquina_Turing maquinaTuring;
+    public Maquina_Mealy maquinaMealy = new Maquina_Mealy();
+    public Maquina_Moore maquinaMoore = new Maquina_Moore();
     public String maquina = "Turing";
     public File fileMaquina;
     public File fileCinta;
     public List<String> cinta = new ArrayList<String>();
-    public List<String> estados = new ArrayList<String>();
     public List<String> quintuplas = new ArrayList<String>();
     public DefaultListModel modeloEstados = new DefaultListModel();
-    public DefaultListModel modeloQuintuplas = new DefaultListModel();;
-    
+    public DefaultListModel modeloQuintuplas = new DefaultListModel();
+
     public JFrameHome() {
         initComponents();
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -96,7 +98,9 @@ public class JFrameHome extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent arg0){
                 if (!arg0.getValueIsAdjusting()){
-                    seleccionEstado(JListEstados.getSelectedValue().toString());
+                    if (JListEstados.getSelectedValue() != null) {
+                        seleccionEstado(JListEstados.getSelectedValue().toString());
+                    }
                 }
             }
         });
@@ -131,6 +135,11 @@ public class JFrameHome extends javax.swing.JFrame {
         jButton3.setText("Reiniciar");
 
         jButton1.setText("Realizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Siguiente");
 
@@ -256,41 +265,56 @@ public class JFrameHome extends javax.swing.JFrame {
         ManejoDeArchivos seleccionDeArchivos = new ManejoDeArchivos();
         fileMaquina = seleccionDeArchivos.seleccionArchivo();
         quintuplas = seleccionDeArchivos.obtenerMaquina(fileMaquina);
-        for(int i=0; i<quintuplas.size(); i++) {
-            if(!modeloEstados.contains(Character.toString(quintuplas.get(i).charAt(0)))){
-                estados.add(Character.toString(quintuplas.get(i).charAt(0)));
+
+        modeloQuintuplas.clear();
+        modeloEstados.clear();
+
+        for (int i = 0; i < quintuplas.size(); i++) {
+            if (!modeloEstados.contains(Character.toString(quintuplas.get(i).charAt(0)))) {
                 modeloEstados.addElement(Character.toString(quintuplas.get(i).charAt(0)));
-            }   
+            }
         }
         JListEstados.setModel(modeloEstados);
         repaint();
     }//GEN-LAST:event_JMenuItemMachineActionPerformed
-    
-    public void seleccionEstado(String estadoSeleccionado){
+
+    private void JMenuItemTapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemTapeActionPerformed
+        ManejoDeArchivos seleccionDeArchivos = new ManejoDeArchivos();
+        fileCinta = seleccionDeArchivos.seleccionArchivo();
+        cinta = seleccionDeArchivos.obtenerCinta(fileCinta);
+        String labelCinta = "";
+        for (int i = 0; i < cinta.size(); i++) {
+            if (i == cinta.size() - 1) {
+                labelCinta = labelCinta + cinta.get(i);
+            } else {
+                labelCinta = labelCinta + cinta.get(i) + " ";
+            }
+        }
+        JTextAreaCinta.setText(labelCinta);
+
+    }//GEN-LAST:event_JMenuItemTapeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        switch (maquina) {
+            case "Turing":
+                maquinaTuring = new Maquina_Turing(quintuplas, cinta);
+                break;
+            case "Mealy":
+                break;
+            case "Moore":
+                break;
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void seleccionEstado(String estadoSeleccionado) {
         modeloQuintuplas.clear();
-        for (int i=0; i<quintuplas.size(); i++) {
+        for (int i = 0; i < quintuplas.size(); i++) {
             if (Character.toString(quintuplas.get(i).charAt(0)).equals(estadoSeleccionado)) {
                 modeloQuintuplas.addElement(quintuplas.get(i));
             }
         }
         JListQuintuplas.setModel(modeloQuintuplas);
     }
-    
-    private void JMenuItemTapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemTapeActionPerformed
-        ManejoDeArchivos seleccionDeArchivos = new ManejoDeArchivos();
-        fileCinta = seleccionDeArchivos.seleccionArchivo();
-        cinta = seleccionDeArchivos.obtenerCinta(fileCinta);
-        String labelCinta = "";
-        for(int i=0; i<cinta.size(); i++) {
-            if(i == cinta.size()-1){
-                labelCinta = labelCinta + cinta.get(i);
-            }else{
-                labelCinta = labelCinta + cinta.get(i) + " ";
-            }
-        }
-        JTextAreaCinta.setText(labelCinta);
-        
-    }//GEN-LAST:event_JMenuItemTapeActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -324,8 +348,7 @@ public class JFrameHome extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabelMachine;

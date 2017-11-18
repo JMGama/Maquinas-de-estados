@@ -268,7 +268,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="JListEstados.addListSelectionListener(new ListSelectionListener(){&#xa;    @Override&#xa;    public void valueChanged(ListSelectionEvent arg0){&#xa;        if (!arg0.getValueIsAdjusting()){&#xa;            seleccionEstado(JListEstados.getSelectedValue().toString());&#xa;        }&#xa;    }&#xa;});"/>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="JListEstados.addListSelectionListener(new ListSelectionListener(){&#xa;    @Override&#xa;    public void valueChanged(ListSelectionEvent arg0){&#xa;        if (!arg0.getValueIsAdjusting()){&#xa;            if (JListEstados.getSelectedValue() != null) {&#xa;                seleccionEstado(JListEstados.getSelectedValue().toString());&#xa;            }&#xa;        }&#xa;    }&#xa;});"/>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
@@ -308,6 +308,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Realizar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
