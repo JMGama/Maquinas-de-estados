@@ -16,16 +16,16 @@ import maquinas_de_estados.turing.Maquina_Turing;
  */
 public class JFrameHome extends javax.swing.JFrame {
 
-    public Maquina_Turing maquinaTuring;
-    public Maquina_Mealy maquinaMealy = new Maquina_Mealy();
-    public Maquina_Moore maquinaMoore = new Maquina_Moore();
-    public String maquina = "Turing";
-    public File fileMaquina;
-    public File fileCinta;
-    public List<String> cinta = new ArrayList<String>();
-    public List<String> quintuplas = new ArrayList<String>();
-    public DefaultListModel modeloEstados = new DefaultListModel();
-    public DefaultListModel modeloQuintuplas = new DefaultListModel();
+    private Maquina_Turing maquinaTuring;
+    private Maquina_Mealy maquinaMealy = new Maquina_Mealy();
+    private Maquina_Moore maquinaMoore = new Maquina_Moore();
+    private String maquina = "Turing";
+    private File fileMaquina;
+    private File fileCinta;
+    private List<String> cinta;
+    private List<String> quintuplas;
+    private DefaultListModel modeloEstados = new DefaultListModel();
+    private DefaultListModel modeloQuintuplas = new DefaultListModel();
 
     public JFrameHome() {
         initComponents();
@@ -133,6 +133,11 @@ public class JFrameHome extends javax.swing.JFrame {
         JScrollPaneCinta.setViewportView(JTextAreaCinta);
 
         jButton3.setText("Reiniciar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Realizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +147,11 @@ public class JFrameHome extends javax.swing.JFrame {
         });
 
         jButton2.setText("Siguiente");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -264,7 +274,7 @@ public class JFrameHome extends javax.swing.JFrame {
     private void JMenuItemMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemMachineActionPerformed
         ManejoDeArchivos seleccionDeArchivos = new ManejoDeArchivos();
         fileMaquina = seleccionDeArchivos.seleccionArchivo();
-        quintuplas = seleccionDeArchivos.obtenerMaquina(fileMaquina);
+        quintuplas = new ArrayList(seleccionDeArchivos.obtenerMaquina(fileMaquina));
 
         modeloQuintuplas.clear();
         modeloEstados.clear();
@@ -281,7 +291,7 @@ public class JFrameHome extends javax.swing.JFrame {
     private void JMenuItemTapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemTapeActionPerformed
         ManejoDeArchivos seleccionDeArchivos = new ManejoDeArchivos();
         fileCinta = seleccionDeArchivos.seleccionArchivo();
-        cinta = seleccionDeArchivos.obtenerCinta(fileCinta);
+        cinta = new ArrayList(seleccionDeArchivos.obtenerCinta(fileCinta));
         String labelCinta = "";
         for (int i = 0; i < cinta.size(); i++) {
             if (i == cinta.size() - 1) {
@@ -306,6 +316,15 @@ public class JFrameHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        mostrarCinta(maquinaTuring.analizar());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        maquinaTuring = new Maquina_Turing(quintuplas, cinta);
+        mostrarCinta(cinta);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     public void seleccionEstado(String estadoSeleccionado) {
         modeloQuintuplas.clear();
         for (int i = 0; i < quintuplas.size(); i++) {
@@ -314,6 +333,18 @@ public class JFrameHome extends javax.swing.JFrame {
             }
         }
         JListQuintuplas.setModel(modeloQuintuplas);
+    }
+
+    public void mostrarCinta(List<String> tape) {
+        String labelCinta = "";
+        for (int i = 0; i < tape.size(); i++) {
+            if (i == tape.size() - 1) {
+                labelCinta = labelCinta + tape.get(i);
+            } else {
+                labelCinta = labelCinta + tape.get(i) + " ";
+            }
+        }
+        JTextAreaCinta.setText(labelCinta);
     }
 
     public static void main(String args[]) {
