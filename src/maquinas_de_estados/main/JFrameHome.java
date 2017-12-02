@@ -317,12 +317,14 @@ public class JFrameHome extends javax.swing.JFrame {
                     mostrarCinta(cinta);
                     break;
                 case "Moore":
+                    maquinaMoore = new Maquina_Moore(tuplas, cinta);
+                    mostrarCinta(maquinaMoore.primer_movimiento());
                     break;
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error:\nNo se encontro "
                     + "Cinta / Maquina\nO el formato de los archivos "
-                    + "es incorrecto.", "Error", JOptionPane.ERROR_MESSAGE);
+                    + "es incorrecto." + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -337,6 +339,7 @@ public class JFrameHome extends javax.swing.JFrame {
                     mostrarCinta(maquinaMealy.analizar());
                     break;
                 case "Moore":
+                    mostrarCinta(maquinaMoore.analizar());
                     break;
             }
         } catch (Exception e) {
@@ -356,13 +359,14 @@ public class JFrameHome extends javax.swing.JFrame {
                     maquinaMealy = new Maquina_Mealy(tuplas, cinta);
                     break;
                 case "Moore":
+                    maquinaMoore = new Maquina_Moore(tuplas, cinta);
                     break;
             }
             mostrarCinta(cinta);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error:\nNo se encontro "
                     + "Cinta / Maquina\nO el formato de los archivos "
-                    + "es incorrecto.", "Error", JOptionPane.ERROR_MESSAGE);
+                    + "es incorrecto." + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
