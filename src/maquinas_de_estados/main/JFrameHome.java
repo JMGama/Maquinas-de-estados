@@ -57,6 +57,8 @@ public class JFrameHome extends javax.swing.JFrame {
         JMenuItemTuring = new javax.swing.JMenuItem();
         JMenuItemMealy = new javax.swing.JMenuItem();
         JMenuItemMoore = new javax.swing.JMenuItem();
+        JMenuInfo = new javax.swing.JMenu();
+        JMenuItemInfo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -238,6 +240,18 @@ public class JFrameHome extends javax.swing.JFrame {
 
         JMenuBar.add(JMenuMachines);
 
+        JMenuInfo.setText("Info");
+
+        JMenuItemInfo.setText("Information");
+        JMenuItemInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemInfoActionPerformed(evt);
+            }
+        });
+        JMenuInfo.add(JMenuItemInfo);
+
+        JMenuBar.add(JMenuInfo);
+
         setJMenuBar(JMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -370,6 +384,15 @@ public class JFrameHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void JMenuItemInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemInfoActionPerformed
+        JOptionPane.showMessageDialog(null, 
+                  "Este software fue creado por:\n"
+                + "Jose Manuel Gama Estrada\n"
+                + "----------------------------------------------\n"
+                + "Contacto:\n"
+                + "Email: josegamaes@gmail.com\n"
+                + "Twitter: @jmgamest", "Information", JOptionPane.INFORMATION_MESSAGE);    }//GEN-LAST:event_JMenuItemInfoActionPerformed
+
     public void seleccionEstado(String estadoSeleccionado) {
         modeloTuplas.clear();
         for (int i = 0; i < tuplas.size(); i++) {
@@ -431,6 +454,8 @@ public class JFrameHome extends javax.swing.JFrame {
     private javax.swing.JList<String> JListEstados;
     private javax.swing.JList<String> JListTuplas;
     private javax.swing.JMenuBar JMenuBar;
+    private javax.swing.JMenu JMenuInfo;
+    private javax.swing.JMenuItem JMenuItemInfo;
     private javax.swing.JMenuItem JMenuItemMachine;
     private javax.swing.JMenuItem JMenuItemMealy;
     private javax.swing.JMenuItem JMenuItemMoore;

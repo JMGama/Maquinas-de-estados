@@ -34,8 +34,8 @@ public class Maquina_Mealy {
         for (String[] tupla : tuplas) {
             if (tupla[0].equals(estadoActual) && tupla[1].equals(lectura)) {
                 cinta.set(posicionCinta, tupla[2]);
-                posicionCinta++;
                 estadoActual = tupla[3];
+                posicionCinta++;
                 break;
             }
         }

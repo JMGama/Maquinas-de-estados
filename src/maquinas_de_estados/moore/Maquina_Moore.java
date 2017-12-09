@@ -45,8 +45,8 @@ public class Maquina_Moore {
         for (String[] tupla : tuplas) {
             if (tupla[0].equals(estadoActual) && tupla[1].equals(lectura)) {
                 cintaResultante.add(tupla[4]);
-                posicionCinta++;
                 estadoActual = tupla[3];
+                posicionCinta++;
                 break;
             }
         }
